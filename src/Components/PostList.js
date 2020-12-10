@@ -1,7 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { connect } from "react-redux";
+import { fetchPosts } from "../Actions";
 
-const PostList = () => {
+const PostList = ({ fetchPosts }) => {
+  useEffect(() => {
+    fetchPosts();
+  }, []);
+
   return <div>POST LIST</div>;
 };
 
-export default PostList;
+const mapStateToProps = (state) => {
+  console.log(state);
+
+  return { songs: state.songsList };
+};
+
+export default connect(null, fetchPosts)(PostList);
