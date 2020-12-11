@@ -2,18 +2,24 @@ import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchPosts } from "../Actions";
 
-const PostList = ({ fetchPosts }) => {
+const PostList = ({ fetchPosts, posts }) => {
   useEffect(() => {
     fetchPosts();
   }, []);
 
-  return <div>POST LIST</div>;
+  console.log(posts);
+
+  const postsRendered = posts.data
+    ? posts.data.map((post) => <p>{post.title}</p>)
+    : "PUTA";
+
+  return <div>{postsRendered}</div>;
 };
 
 const mapStateToProps = (state) => {
   console.log(state);
 
-  return { songs: state.songsList };
+  return { posts: state.posts };
 };
 
-export default connect(null, fetchPosts)(PostList);
+export default connect(mapStateToProps, { fetchPosts })(PostList);
