@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchPosts } from "../Actions";
+import UserHeader from "./UserHeader";
 
 const PostList = ({ fetchPosts, posts }) => {
   useEffect(() => {
@@ -9,9 +10,12 @@ const PostList = ({ fetchPosts, posts }) => {
 
   console.log(posts);
 
-  const postsRendered = posts.data
-    ? posts.data.map((post) => <p>{post.title}</p>)
-    : "PUTA";
+  const postsRendered = posts.map((post) => (
+    <div>
+      <p key={post.id}>{post.title}</p>
+      <UserHeader id={post.userId} />
+    </div>
+  ));
 
   return <div>{postsRendered}</div>;
 };
